@@ -3,7 +3,7 @@
 #------------------------------------------------------------------------------
 # Project Name      - RubyProjects/source/ruby_notes.rb
 # Started On        - Sat 19 Jun 05:51:26 BST 2021
-# Last Change       - Sat 19 Jun 23:38:14 BST 2021
+# Last Change       - Sun 20 Jun 00:00:48 BST 2021
 # Author E-Mail     - terminalforlife@yahoo.com
 # Author GitHub     - https://github.com/terminalforlife
 #------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ puts(".")
 # Note the use of a concatenation symbol, which I believe works like you'd
 # expect in JS. In PERL, this is `.`, but that doesn't work here. This operator
 # becomes problematic due to the ambiguity when an integer or float is used; -
-# in this case, the `to_s()` function can be used, to temperarily convert it to
+# in this case, the `to_s()` function can be used, to temporarily convert it to
 # a string.
 #
 # There is also `to_f()` and likely other predictable 'to' functions.
@@ -55,7 +55,7 @@ puts(".")
 #
 # Unlike standard shells, negative numbers (integer and float) can be used.
 #
-# Unfortunately, all-lowercase and words seprated by an underscore is the
+# Unfortunately, all-lowercase and words separated by an underscore is the
 # standard used in Ruby; I hate this, and think it looks fugly and weird, but
 # it's the standard. Ordinarily, I wouldn't care, but it's actually really
 # important in Ruby, because there are many reserved words, such as `Array`.
@@ -104,7 +104,7 @@ puts(variable.include?('Value'))
 # You can start from the end of the array by using a negative integer.
 puts(variable[0].downcase())
 
-# Erithmetic operations in Ruby works as they do in PERL, and share the usual
+# Arithmetic operations in Ruby works as they do in PERL, and share the usual
 # similarities with standard shells.
 #
 # This also conveniently demonstrates the use of a semi-colon to have Ruby see
@@ -124,7 +124,7 @@ puts(floater.floor())
 # PERL, using the `gets()` function (presumably: 'get string').
 #
 # You don't have to convert it to a string using `to_s()` to avoid an unwanted
-# erithmetic operation, because it's of course going to be a string anyway.
+# arithmetic operation, because it's of course going to be a string anyway.
 #
 # I remember being put off by assignment the returned value of a function to a
 # variable, years ago. Now, it makes sense and seems practical.
@@ -164,7 +164,7 @@ random_array.sort()
 
 # Making a hash in Ruby is super-simple, just like in PERL. I'm seeing a lot of
 # similarities between PERL and Ruby. If anything, it's like Ruby is a
-# combination of PERL and Python. This syntax, specfically, is almost as it
+# combination of PERL and Python. This syntax, specifically, is almost as it
 # would typically be in PERL.
 #
 # Although this is obvious for the value, it's worth pointing out that the key
@@ -224,8 +224,8 @@ else
 	puts('variable is neither Value nor Duh')
 end
 
-# Erithmetic comparison operators are just as they are in Bourne Shell's
-# erithmetic evalation and in PERL.
+# Arithmetic comparison operators are just as they are in Bourne Shell's
+# arithmetic evaluation and in PERL.
 number = 2
 if number > 2
 	puts('number is greater than 2')
@@ -272,7 +272,7 @@ end
 
 # Alternative approach to `for` looping, using the `each()` function. It's a
 # bit weird looking, especially with the pipes, which seem to be required, but
-# it works well enough, I guess. I prefer the above standard appraoch, and the
+# it works well enough, I guess. I prefer the above standard approach, and the
 # above is less to type.
 my_array.each() do |name|
 	puts(name)
@@ -309,7 +309,7 @@ begin
 	fh.close()
 rescue EOFError
 	# Here we've 'caught' the `EOFError` which will show because `readline()`
-	# would otherwise unintelligently try to reach a non-existant line.
+	# would otherwise unintelligently try to reach a non-existent line.
 	#
 	# I wish `readline()` were smart enough here to not bother reading an empty
 	# line; this isn't a problem I've come across in PERL.
@@ -330,7 +330,7 @@ end
 # with the backquotes (graves; '`'). Notice that you can even directly do
 # something with the string, such as `split()` it into an array.
 #
-# It's easy to split a string by a chracter, or the default of a whitespace, -
+# It's easy to split a string by a character, or the default of a whitespace, -
 # using the `split()` function. The result is as expected from PERL, and the
 # syntax is like in Python.
 #
@@ -373,18 +373,43 @@ Dir.home()
 # easier! I could see me really enjoying OOP in Ruby, but it doesn't feel
 # so clumsy.
 #
-# None of that annoying blessing or convolted hash systems, like in PERL.
+# None of that annoying blessing or convoluted hash systems, like in PERL.
 #
 # With classes being this easy and practical to create, I can see them being
 # quite popular and me using them often, if I end up taking Ruby seriously.
 class Cool
-    def date
-        return(`date`)
-    end
+	# This is a specially named and handled function which is executed first
+	# when an object for the class is first created.
+	def initialize(random)
+		@random_variable = random
+	end
+
+	def pre(string)
+		# This is an 'instance' variable, which apparently means it belongs to
+		# the objects of instances of the class; I don't entirely get it.
+		@prepend = string
+	end
+
+	def date
+		# You have to use the `@` here, too.
+		return("#{@prepend}: " + `date`)
+	end
 end
 
-# Create a new object for the above class, like you often do in PERL.
-newcool = Cool.new()
+# Create a new object for the above class, like you often do in PERL. Because
+# of the `initialize()` function in `Cool`, you writer now has to define that
+# `random` paramter, for the `@random_variable' instanced variable.
+#
+# This makes it easy for the writer to set up their object without constantly
+# repeating setting functions.
+newcool = Cool.new('thing')
+
+# Prepend the following to the timestamp by date(1). The `:` is added by the
+# `pre()` function in the `Cool` class.
+#
+# This sort of operation seems to be so much more involved in PERL. Being able
+# to get and set values this easily is a gift and timesaver.
+newcool.pre('TIMESTAMP')
 
 # Access the new class's function/method like you would anything else.
 puts(newcool.date())
